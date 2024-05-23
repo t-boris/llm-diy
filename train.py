@@ -89,8 +89,10 @@ def train_model():
     # Train the model
     num_epochs = 3
     for epoch in range(num_epochs):
+        print(f"Epoch: {epoch + 1}/{num_epochs}")
         model.train()
         train_loss = 0
+        startTime = time.time()
         for batch_idx, (data, targets) in enumerate(train_loader):
             if torch.cuda.is_available():
                 data, targets = data.cuda(), targets.cuda()
@@ -102,7 +104,8 @@ def train_model():
             optimizer.step()
 
             if batch_idx % 100 == 0:
-                print(f"Epoch: {epoch + 1}/{num_epochs}, Batch: {batch_idx}/{len(train_loader)}, Loss: {loss.item():.4f}")
+                print(f"Epoch: {epoch + 1}/{num_epochs}, Batch: {batch_idx}/{len(train_loader)}, Loss: {loss.item():.4f}, "
+                      f"Took: {time.time() - startTime:.2f} seconds. Estimated time left: {((time.time() - startTime) * (len(train_loader) - batch_idx)):.2f} seconds.")
 
         # Calculate average loss for the epoch
         avg_train_loss = train_loss / len(train_loader)
