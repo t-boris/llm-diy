@@ -111,3 +111,16 @@ class Tokenizer:
 
     def decode(self, ids: list[int]) -> str:
         return self.tokenizer.decode(ids)
+
+
+if __name__ == "__main__":
+    input_path = 'data/bookcorpus.txt'
+    output_path = 'data/tokenized_bookcorpus.txt'
+    tokenizer = Tokenizer()
+
+    with open(input_path, 'r', encoding='utf-8') as infile, \
+            open(output_path, 'w', encoding='utf-8') as outfile:
+        for line in infile:
+            token_ids = tokenizer.encode(line.strip())  # Tokenize the line
+            token_ids_str = ' '.join(map(str, token_ids))  # Convert token IDs to string
+            outfile.write(token_ids_str + '\n')  # Write token IDs to the output file
