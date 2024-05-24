@@ -106,7 +106,8 @@ def train_model():
             if batch_idx % 100 == 0:
                 print(f"Epoch: {epoch + 1}/{num_epochs}, Batch: {batch_idx}/{len(train_loader)}, Loss: {loss.item():.4f}, "
                       f"Took: {time.time() - startTime:.2f} seconds. Estimated time left: {((time.time() - startTime) * (len(train_loader) - batch_idx)):.2f} seconds.")
-
+                startTime = time.time()
+                
         # Calculate average loss for the epoch
         avg_train_loss = train_loss / len(train_loader)
         print(f"Epoch: {epoch + 1}/{num_epochs}, Average Train Loss: {avg_train_loss:.4f}")
